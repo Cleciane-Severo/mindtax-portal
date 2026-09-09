@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "numero": "Art. 1º",
+        "caminho": ["LIVRO I", "TÍTULO I", "CAPÍTULO I", "DISPOSIÇÕES PRELIMINARES"],
+        "texto": "Ficam instituídos:\nI - o Imposto sobre Bens e Serviços (IBS);\nII - a Contribuição Social sobre Bens e Serviços (CBS);\nIII - o Imposto Seletivo (IS).\n\n(Texto demonstrativo — substituir pelo conteúdo extraído e revisado da LC 214/2025.)"
+    },
+    {
+        "id": "2",
+        "numero": "Art. 2º",
+        "caminho": ["LIVRO I", "TÍTULO I", "CAPÍTULO I", "DISPOSIÇÕES PRELIMINARES"],
+        "texto": "O IBS e a CBS são informados pelo princípio da neutralidade tributária.\n\n(Texto demonstrativo.)"
+    },
+    {
+        "id": "173",
+        "numero": "Art. 173",
+        "caminho": ["LIVRO II", "TÍTULO IV", "REGIMES ESPECÍFICOS", "COMBUSTÍVEIS"],
+        "texto": "Este é o artigo aberto ao usar 'Ir direto ao artigo: 173'. Aqui entrará o texto do dispositivo relativo a combustíveis.\n\n(Texto demonstrativo.)"
+    }
+]

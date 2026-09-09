@@ -1,0 +1,142 @@
+<!-- MÓDULO: REFORMA TRIBUTÁRIA (prévia blocos 1+2+3, adaptada ao motor) -->
+
+<!-- ===== BLOCO 1: Breadcrumb + Hero ===== -->
+<nav class="rt-breadcrumb rt-block">
+    <a onclick="MindTax.go('inicio')">Início</a>
+    <span class="sep">/</span>
+    <span class="current">Reforma Tributária</span>
+</nav>
+
+<section class="rt-hero rt-block">
+    <span class="eyebrow">Hub de Consulta da Reforma Tributária</span>
+    <h1>Reforma Tributária</h1>
+    <p>Base consolidada para consulta da LC 214/2025, IBS, CBS, Imposto Seletivo
+       e atos do Comitê Gestor do IBS, em um ambiente estruturado e atualizado.</p>
+
+    <div class="rt-search">
+        <input id="rtSearch" type="text"
+            placeholder="Pesquisar artigo, capítulo, seção, anexo ou tema da Reforma Tributária">
+        <button onclick="MindTax.buscar('rtSearch')">Pesquisar</button>
+    </div>
+
+    <div class="rt-tags">
+        <span class="label">Sugestões:</span>
+        <button onclick="MindTax.preencher(this,'rtSearch')">Art. 173</button>
+        <button onclick="MindTax.preencher(this,'rtSearch')">Crédito presumido</button>
+        <button onclick="MindTax.preencher(this,'rtSearch')">Combustíveis</button>
+        <button onclick="MindTax.preencher(this,'rtSearch')">IBS</button>
+        <button onclick="MindTax.preencher(this,'rtSearch')">CBS</button>
+    </div>
+</section>
+
+<!-- ===== BLOCO 2: Bases ===== -->
+<div class="rt-block">
+    <div class="rt-section-head">
+        <div><h2>Legislação da Reforma Tributária</h2><p>Selecione uma base para iniciar a consulta.</p></div>
+        <a>Ver todas</a>
+    </div>
+
+    <section class="rt-bases">
+
+        <div class="rt-base-card">
+            <div class="rt-base-top"><div class="rt-base-icon">LC</div><span class="rt-badge review">Em revisão</span></div>
+            <h3>LC 214/2025</h3>
+            <p>Texto legal estruturado por partes, títulos, capítulos e artigos.</p>
+            <div class="rt-meta">
+                <div><small>Artigos</small><strong>499</strong></div>
+                <div><small>Revisados</small><strong>104</strong></div>
+            </div>
+            <button class="rt-base-btn" onclick="MindTax.abrirEstrutura()">Acessar</button>
+        </div>
+
+        <div class="rt-base-card">
+            <div class="rt-base-top"><div class="rt-base-icon">IBS</div><span class="rt-badge">Disponível</span></div>
+            <h3>IBS</h3>
+            <p>Imposto sobre Bens e Serviços: normas e regulamentações relacionadas.</p>
+            <div class="rt-meta"><div><small>Tipo</small><strong>Tributo</strong></div><div><small>Base</small><strong>Vinculada</strong></div></div>
+            <button class="rt-base-btn" onclick="MindTax.emBreve('IBS')">Acessar</button>
+        </div>
+
+        <div class="rt-base-card">
+            <div class="rt-base-top"><div class="rt-base-icon">CBS</div><span class="rt-badge">Disponível</span></div>
+            <h3>CBS</h3>
+            <p>Contribuição sobre Bens e Serviços: normas e regulamentações relacionadas.</p>
+            <div class="rt-meta"><div><small>Tipo</small><strong>Tributo</strong></div><div><small>Base</small><strong>Vinculada</strong></div></div>
+            <button class="rt-base-btn" onclick="MindTax.go('norma','cbs')">Acessar</button>
+        </div>
+
+        <div class="rt-base-card">
+            <div class="rt-base-top"><div class="rt-base-icon">IS</div><span class="rt-badge plan">Planejada</span></div>
+            <h3>Imposto Seletivo</h3>
+            <p>Legislação e regulamentações aplicáveis ao Imposto Seletivo.</p>
+            <div class="rt-meta"><div><small>Tipo</small><strong>Tributo</strong></div><div><small>Base</small><strong>Em preparo</strong></div></div>
+            <button class="rt-base-btn" onclick="MindTax.emBreve('Imposto Seletivo')">Acessar</button>
+        </div>
+
+        <div class="rt-base-card">
+            <div class="rt-base-top"><div class="rt-base-icon">CGIBS</div><span class="rt-badge">Disponível</span></div>
+            <h3>Comitê Gestor IBS</h3>
+            <p>Resoluções, atos normativos e regulamentações do Comitê Gestor.</p>
+            <div class="rt-meta"><div><small>Tipo</small><strong>Órgão</strong></div><div><small>Conteúdo</small><strong>Atos</strong></div></div>
+            <button class="rt-base-btn" onclick="MindTax.emBreve('Comitê Gestor IBS')">Acessar</button>
+        </div>
+
+    </section>
+</div>
+
+<!-- ===== BLOCO 3: Estrutura da LC 214 (recolhível — abre no "Acessar" do card LC) ===== -->
+<div id="rtEstrutura" class="rt-block rt-collapsible">
+    <div class="rt-section-head">
+        <div><h2>Estrutura da LC 214/2025</h2><p>Navegue pela lei complementar por partes ou vá direto a um artigo.</p></div>
+        <button class="rt-close-struct" onclick="MindTax.fecharEstrutura()">Fechar ✕</button>
+    </div>
+
+    <section class="rt-estrutura">
+        <div class="rt-estrutura-top">
+            <div class="rt-estrutura-id">
+                <div class="rt-estrutura-icon">LC</div>
+                <div><h3>Lei Complementar nº 214/2025</h3><span>499 artigos · Reforma Tributária</span></div>
+            </div>
+            <div class="rt-progress-box">
+                <div class="lbl"><span>Revisão da base</span><span>35%</span></div>
+                <div class="rt-progress"><span style="width:35%"></span></div>
+            </div>
+        </div>
+
+        <div class="rt-partes">
+            <a class="rt-parte" onclick="MindTax.go('norma','lc214','art-1')">
+                <div class="rt-parte-top"><div class="rt-parte-num">I</div><span class="rt-parte-tag">Disposições</span></div>
+                <h4>Parte Geral</h4><p>Disposições iniciais, definições e regras comuns ao IBS e à CBS.</p>
+                <div class="rt-parte-foot"><span>Arts. iniciais</span><span class="go">Acessar →</span></div>
+            </a>
+            <a class="rt-parte" onclick="MindTax.go('norma','lc214')">
+                <div class="rt-parte-top"><div class="rt-parte-num">II</div><span class="rt-parte-tag">Tributo</span></div>
+                <h4>IBS</h4><p>Imposto sobre Bens e Serviços: incidência, base de cálculo e regimes.</p>
+                <div class="rt-parte-foot"><span>Livro do IBS</span><span class="go">Acessar →</span></div>
+            </a>
+            <a class="rt-parte" onclick="MindTax.go('norma','lc214')">
+                <div class="rt-parte-top"><div class="rt-parte-num">III</div><span class="rt-parte-tag">Tributo</span></div>
+                <h4>CBS</h4><p>Contribuição sobre Bens e Serviços: normas próprias e remissões.</p>
+                <div class="rt-parte-foot"><span>Livro da CBS</span><span class="go">Acessar →</span></div>
+            </a>
+            <a class="rt-parte" onclick="MindTax.go('norma','lc214')">
+                <div class="rt-parte-top"><div class="rt-parte-num">IV</div><span class="rt-parte-tag">Tributo</span></div>
+                <h4>Imposto Seletivo</h4><p>Regras aplicáveis ao IS, hipóteses de incidência e disposições.</p>
+                <div class="rt-parte-foot"><span>Disposições do IS</span><span class="go">Acessar →</span></div>
+            </a>
+            <a class="rt-parte" onclick="MindTax.go('norma','lc214')">
+                <div class="rt-parte-top"><div class="rt-parte-num">A</div><span class="rt-parte-tag">Complementar</span></div>
+                <h4>Anexos</h4><p>Listas, tabelas e documentos complementares vinculados à lei.</p>
+                <div class="rt-parte-foot"><span>Documentos</span><span class="go">Acessar →</span></div>
+            </a>
+        </div>
+
+        <div class="rt-estrutura-foot">
+            <label for="rtArtigo">Ir direto ao artigo:</label>
+            <div class="rt-artigo-input">
+                <input id="rtArtigo" type="text" placeholder="Ex.: 173">
+                <button onclick="MindTax.irArtigo('rtArtigo')">Abrir artigo</button>
+            </div>
+        </div>
+    </section>
+</div>

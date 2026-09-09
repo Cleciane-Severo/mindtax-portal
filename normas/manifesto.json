@@ -1,0 +1,16 @@
+[
+    {
+        "id": "lc214",
+        "sigla": "LC 214/2025",
+        "titulo": "Lei Complementar nº 214/2025",
+        "icone": "LC",
+        "arquivo": "normas/lc214.json"
+    },
+    {
+        "id": "cbs",
+        "sigla": "CBS",
+        "titulo": "Contribuição sobre Bens e Serviços",
+        "icone": "CBS",
+        "arquivo": "normas/cbs.json"
+    }
+]

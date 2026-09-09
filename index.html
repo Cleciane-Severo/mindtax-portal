@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindTax | Portal</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR (fixa, padrão v7) -->
+    <aside class="sidebar">
+        <div class="brand-card" onclick="MindTax.go('inicio')">
+            <div class="brand-mark"><span class="m">M</span><span class="t">T</span></div>
+            <div class="brand-copy"><h1>MindTax</h1><p>Inteligência tributária</p></div>
+        </div>
+
+        <div class="nav-label">VISÃO GERAL</div>
+        <nav class="nav">
+            <a data-nav="inicio" onclick="MindTax.go('inicio')"><span class="dot"></span>Início</a>
+        </nav>
+
+        <div class="nav-label">CONSULTA</div>
+        <nav class="nav">
+            <a data-nav="reforma" onclick="MindTax.go('reforma')"><span class="dot"></span>Reforma Tributária</a>
+            <a onclick="alert('Módulo em construção.')"><span class="dot"></span>Regulamentos Estaduais</a>
+            <a onclick="alert('Módulo em construção.')"><span class="dot"></span>Legislação</a>
+        </nav>
+
+        <div class="nav-label">MINHA ÁREA</div>
+        <nav class="nav">
+            <a onclick="alert('Módulo em construção.')"><span class="dot"></span>Favoritos</a>
+            <a onclick="alert('Módulo em construção.')"><span class="dot"></span>Atualizações</a>
+        </nav>
+
+        <div class="sidebar-note">
+            <strong>Base consolidada</strong>
+            <p>Normas e artigos carregados sob demanda, mantendo o portal leve.</p>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <header class="topbar">
+            <div><small id="topSub">Dashboard inicial</small><h2 id="topTitle">MindTax</h2></div>
+            <a class="btn" onclick="MindTax.go('inicio')">Início</a>
+        </header>
+
+        <!-- O motor injeta os módulos aqui -->
+        <div class="content" id="app-content">
+            <div class="loading">Carregando…</div>
+        </div>
+    </main>
+
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
