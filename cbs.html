@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindTax | CBS — Regulamento (Decreto nº 12.955/2026)</title>
+<link rel="stylesheet" href="assets/norma.css">
+</head>
+<body>
+
+<div id="cbs-root">
+    <div class="norma-topo"><div class="id"><div class="ic">CBS</div>
+        <div><h1>Carregando o Regulamento da CBS…</h1><span>Aguarde</span></div></div></div>
+</div>
+
+<script src="assets/norma-render.js"></script>
+<script>
+/* Versão modular: lê o arquivo de dados (a extração) e aplica o molde.
+   Requer servidor (GitHub Pages / Live Server) por usar fetch. */
+(async function () {
+    const META = {
+        sigla: 'CBS',
+        titulo: 'Regulamento da CBS — Decreto nº 12.955/2026',
+        subtitulo: 'Contribuição Social sobre Bens e Serviços · arts. 1º a 620',
+        icone: 'CBS'
+    };
+    const root = document.getElementById('cbs-root');
+    try {
+        // ajuste o caminho conforme a pasta de dados do seu portal:
+        const resp = await fetch('leis/cbs_completo.json', { cache: 'no-cache' });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const dados = await resp.json();
+        // normaliza o campo "artigo" (a extração usa "artigo"; o motor aceita)
+        MindTaxNorma.render(root, META, dados, { linkLC214: true });
+    } catch (e) {
+        root.innerHTML =
+            '<div class="norma-topo"><div class="id"><div class="ic">CBS</div>' +
+            '<div><h1>Não foi possível carregar cbs_completo.json</h1>' +
+            '<span>' + e.message + '</span></div></div></div>' +
+            '<div class="norma-doc"><p class="norma-art">Verifique se o arquivo <b>leis/cbs_completo.json</b> ' +
+            'está na pasta correta e se a página está sendo servida por um servidor ' +
+            '(GitHub Pages ou Live Server) — o <code>fetch</code> não funciona por duplo clique.</p></div>';
+    }
+})();
+</script>
+</body>
+</html>

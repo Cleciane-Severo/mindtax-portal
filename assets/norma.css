@@ -1,0 +1,74 @@
+/* ==========================================================
+   MINDTAX — MOLDE DE NORMA (estilo Planalto)
+   Aplicado UMA vez sobre qualquer norma (CBS, LC 214, IBS...).
+   Prefixo .norma-  |  reutilizável em todos os módulos.
+   ========================================================== */
+
+:root{
+    --bg:#f5f7fb;--paper:#ffffff;--line:#e2e8f0;
+    --blue:#1a4fa0;--blue-dark:#0f2f6b;--text:#1a1a1a;--muted:#64748b;
+    --shadow:0 12px 30px rgba(15,23,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+
+/* Barra superior do documento (cabeçalho do portal) */
+.norma-topo{max-width:940px;margin:26px auto 16px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.norma-topo .id{display:flex;align-items:center;gap:12px;min-width:0}
+.norma-topo .ic{width:48px;height:48px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;color:#fff;font-weight:900;font-size:13px;background:linear-gradient(145deg,#0b2d68,#1f66e5)}
+.norma-topo h1{font-size:18px;color:var(--blue-dark);letter-spacing:-.02em;line-height:1.15}
+.norma-topo .id span{font-size:12px;color:var(--muted);font-weight:700}
+.norma-topo .tools{display:flex;gap:8px;flex:0 0 auto}
+.norma-topo .tools input{border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13px;outline:none;width:120px;background:#fff}
+.norma-topo .tools input:focus{border-color:#c9dcfb}
+.norma-topo .tools button{border:0;border-radius:10px;padding:0 14px;background:var(--blue);color:#fff;font-size:12px;font-weight:800;cursor:pointer}
+
+/* Barra de progresso opcional */
+.norma-stats{max-width:940px;margin:0 auto 14px;padding:0 20px;display:flex;gap:10px;flex-wrap:wrap}
+.norma-chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+.norma-chip strong{color:var(--blue-dark)}
+
+/* Folha da norma — o "papel" */
+.norma-doc{
+    max-width:940px;margin:0 auto 60px;background:var(--paper);border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow);padding:46px 58px;
+    font-size:16px;line-height:1.75;color:var(--text);
+}
+
+/* Cabeçalhos de estrutura — centralizados (Planalto) */
+.norma-h{text-align:center;font-weight:700;letter-spacing:.01em}
+.norma-h .k{display:block}
+.norma-h .n{display:block;font-weight:700}
+.norma-h.livro{margin-top:34px}
+.norma-h.titulo{margin-top:26px}
+.norma-h.capitulo{margin-top:24px}
+.norma-h.secao{margin-top:20px;font-weight:600}
+.norma-h.subsecao{margin-top:16px;font-weight:600;font-size:15px}
+.norma-h:first-child{margin-top:0}
+
+/* Artigo, incisos, alíneas, itens, parágrafos */
+.norma-art{margin:18px 0 0;text-align:justify;text-indent:2.2em;scroll-margin-top:20px}
+.norma-art .num{font-weight:700}
+.norma-inciso{margin:5px 0 0;text-align:justify;text-indent:2.2em}
+.norma-alinea{margin:3px 0 0;text-align:justify;text-indent:3.4em}
+.norma-item{margin:2px 0 0;text-align:justify;text-indent:4.4em}
+.norma-par{margin:9px 0 0;text-align:justify;text-indent:2.2em}
+
+/* Referência à LC 214 (rodapé discreto do artigo, clicável) */
+.norma-ref{display:block;text-indent:0;margin-top:6px;font-size:12.5px;font-weight:700}
+.norma-ref a{color:var(--blue);text-decoration:none;background:#f4f8ff;border:1px solid #dbeafe;border-radius:999px;padding:3px 10px;display:inline-block}
+.norma-ref a:hover{text-decoration:underline}
+
+/* Separador leve entre artigos */
+.norma-art.sep{border-top:1px solid #eef2f7;padding-top:16px}
+
+/* Destaque ao "ir ao artigo" */
+.norma-art.destaque{background:#f4f8ff;border-left:3px solid var(--blue);border-radius:4px;padding:8px 12px;text-indent:2.0em}
+
+@media(max-width:720px){
+    .norma-doc{padding:26px 20px;font-size:15px}
+    .norma-topo{flex-direction:column;align-items:flex-start}
+    .norma-art,.norma-inciso,.norma-par{text-indent:1.4em}
+    .norma-alinea{text-indent:2.2em}
+    .norma-item{text-indent:3em}
+}

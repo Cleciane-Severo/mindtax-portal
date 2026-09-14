@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MindTax | CBS — Prévia do molde (arts. 1º a 4º reais)</title>
+<style>
+:root{--bg:#f5f7fb;--paper:#fff;--line:#e2e8f0;--blue:#1a4fa0;--blue-dark:#0f2f6b;--text:#1a1a1a;--muted:#64748b;--shadow:0 12px 30px rgba(15,23,42,.06)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.norma-topo{max-width:940px;margin:26px auto 16px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.norma-topo .id{display:flex;align-items:center;gap:12px;min-width:0}
+.norma-topo .ic{width:48px;height:48px;border-radius:14px;flex:0 0 auto;display:grid;place-items:center;color:#fff;font-weight:900;font-size:13px;background:linear-gradient(145deg,#0b2d68,#1f66e5)}
+.norma-topo h1{font-size:18px;color:var(--blue-dark);letter-spacing:-.02em;line-height:1.15}
+.norma-topo .id span{font-size:12px;color:var(--muted);font-weight:700}
+.norma-topo .tools{display:flex;gap:8px;flex:0 0 auto}
+.norma-topo .tools input{border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13px;outline:none;width:120px;background:#fff}
+.norma-topo .tools button{border:0;border-radius:10px;padding:0 14px;background:var(--blue);color:#fff;font-size:12px;font-weight:800;cursor:pointer}
+.norma-stats{max-width:940px;margin:0 auto 14px;padding:0 20px;display:flex;gap:10px;flex-wrap:wrap}
+.norma-chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:var(--muted)}
+.norma-chip strong{color:var(--blue-dark)}
+.norma-doc{max-width:940px;margin:0 auto 60px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:46px 58px;font-size:16px;line-height:1.75;color:var(--text)}
+.norma-h{text-align:center;font-weight:700;letter-spacing:.01em}
+.norma-h .k{display:block}.norma-h .n{display:block;font-weight:700}
+.norma-h.livro{margin-top:34px}.norma-h.titulo{margin-top:26px}.norma-h.capitulo{margin-top:24px}
+.norma-h.secao{margin-top:20px;font-weight:600}.norma-h.subsecao{margin-top:16px;font-weight:600;font-size:15px}
+.norma-h:first-child{margin-top:0}
+.norma-art{margin:18px 0 0;text-align:justify;text-indent:2.2em;scroll-margin-top:20px}
+.norma-art .num{font-weight:700}
+.norma-inciso{margin:5px 0 0;text-align:justify;text-indent:2.2em}
+.norma-alinea{margin:3px 0 0;text-align:justify;text-indent:3.4em}
+.norma-item{margin:2px 0 0;text-align:justify;text-indent:4.4em}
+.norma-par{margin:9px 0 0;text-align:justify;text-indent:2.2em}
+.norma-ref{display:block;text-indent:0;margin-top:6px;font-size:12.5px;font-weight:700}
+.norma-ref a{color:var(--blue);text-decoration:none;background:#f4f8ff;border:1px solid #dbeafe;border-radius:999px;padding:3px 10px;display:inline-block;cursor:pointer}
+.norma-ref a:hover{text-decoration:underline}
+.norma-art.sep{border-top:1px solid #eef2f7;padding-top:16px}
+.norma-art.destaque{background:#f4f8ff;border-left:3px solid var(--blue);border-radius:4px;padding:8px 12px;text-indent:2.0em}
+@media(max-width:720px){.norma-doc{padding:26px 20px;font-size:15px}.norma-topo{flex-direction:column;align-items:flex-start}.norma-art,.norma-inciso,.norma-par{text-indent:1.4em}.norma-alinea{text-indent:2.2em}.norma-item{text-indent:3em}}
+</style>
+</head>
+<body>
+
+<div id="cbs-root"></div>
+
+<script>
+/* ====== MOTOR DO MOLDE (mesmo de assets/norma-render.js) ====== */
+const MindTaxNorma=(function(){
+ function limpar(t){if(!t)return'';t=t.replace(/\(Art\.[\s\S]*?Lei\s+Complementar\s+n[ºo]\s*214[\s\S]*?\)/g,'');t=t.replace(/\((?:Vide\s+)?Produção de efeitos\)/g,'');t=t.replace(/\(Incluído pelo Decreto[^)]*\)/g,'');return t;}
+ function parse(texto){const t=limpar(texto);const L=t.split(/\n/).map(s=>s.trim()).filter(Boolean);const e=[];L.forEach(function(l){let tp='cont';if(/^Art\.\s/.test(l))tp='art';else if(/^§\s*\d+/.test(l)||/^Parágrafo único/i.test(l))tp='par';else if(/^[IVXLCDM]+\s*[-–]\s/.test(l))tp='inciso';else if(/^[a-z]\)\s/.test(l))tp='alinea';else if(/^\d+\.\s/.test(l))tp='item';if(tp==='cont'){if(e.length)e[e.length-1].text+=' '+l;else e.push({tipo:'art',text:l});}else e.push({tipo:tp,text:l});});return e;}
+ var NIV=[{rx:/^LIVRO\s+[IVXLCDM]+\s*[-–]\s/i,key:'livro',cls:'livro'},{rx:/^T[IÍ]TULO\s+[IVXLCDM]+\s*[-–]\s/i,key:'titulo',cls:'titulo'},{rx:/^CAP[IÍ]TULO\s+[IVXLCDM]+\s*[-–]\s/i,key:'capitulo',cls:'capitulo'},{rx:/^SE[ÇC][ÃA]O\s+[IVXLCDM]+\s*[-–]\s/i,key:'secao',cls:'secao'},{rx:/^SUBSE[ÇC][ÃA]O\s+[IVXLCDM]+\s*[-–]\s/i,key:'subsecao',cls:'subsecao'}];
+ function classe(h){h=(h||'').trim();for(var i=0;i<NIV.length;i++)if(NIV[i].rx.test(h))return NIV[i];return null;}
+ function header(h,cls){var i=h.indexOf(' - ');if(i<0)i=h.indexOf(' – ');var k=i>=0?h.slice(0,i).trim():h.trim();var n=i>=0?h.slice(i+3).trim():'';return'<div class="norma-h '+cls+'"><span class="k">'+esc(k)+'</span>'+(n?'<span class="n">'+esc(n)+'</span>':'')+'</div>';}
+ function ref(art){var r=art.referencias_lc214,L=[];if(Array.isArray(r))L=r.slice();else if(typeof r==='string'&&r.trim())L=[r.trim()];L=L.filter(Boolean);if(!L.length)return'';var a=L.map(function(n){return'<a onclick="MindTaxNorma.irLC214(\''+n+'\')">Art. '+esc(n)+'</a>';});return'<span class="norma-ref">Fundamento LC 214/2025: '+a.join(' ')+'</span>';}
+ function artigo(art,primeiro){var e=parse(art.texto),html='',id='art-'+(art.artigo||''),ab=false;e.forEach(function(x){if(x.tipo==='art'){var m=x.text.match(/^(Art\.\s*[\dºoA-Z-]+)\s*/);var num=m?m[1]:'';var rs=m?x.text.slice(m[0].length):x.text;var sep=(!primeiro&&!ab)?' sep':'';html+='<p class="norma-art'+sep+'" id="'+id+'">'+(num?'<span class="num">'+esc(num)+'</span> ':'')+esc(rs)+'</p>';ab=true;}else if(x.tipo==='inciso')html+='<p class="norma-inciso">'+esc(x.text)+'</p>';else if(x.tipo==='alinea')html+='<p class="norma-alinea">'+esc(x.text)+'</p>';else if(x.tipo==='item')html+='<p class="norma-item">'+esc(x.text)+'</p>';else if(x.tipo==='par')html+='<p class="norma-par">'+esc(x.text)+'</p>';});html+=ref(art);return html;}
+ function render(c,meta,arts){var at={livro:null,titulo:null,capitulo:null,secao:null,subsecao:null},ord=['livro','titulo','capitulo','secao','subsecao'];
+  var top='<div class="norma-topo"><div class="id"><div class="ic">'+esc(meta.icone)+'</div><div><h1>'+esc(meta.titulo)+'</h1><span>'+esc(meta.subtitulo)+'</span></div></div><div class="tools"><input id="normaGoArt" type="text" placeholder="Ir ao art."><button onclick="MindTaxNorma.irArtigo()">Ir</button></div></div>';
+  var st='<div class="norma-stats"><span class="norma-chip"><strong>'+arts.length+'</strong> artigos (amostra)</span><span class="norma-chip">'+esc(meta.sigla)+'</span></div>';
+  var doc='<article class="norma-doc">';
+  arts.forEach(function(art,i){(Array.isArray(art.hierarquia)?art.hierarquia:[]).forEach(function(h){var nv=classe(h);if(!nv)return;if(at[nv.key]!==h){doc+=header(h,nv.cls);at[nv.key]=h;var p=ord.indexOf(nv.key);for(var j=p+1;j<ord.length;j++)at[ord[j]]=null;}});doc+=artigo(art,i===0);});
+  doc+='</article>';c.innerHTML=top+st+doc;}
+ function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+ function irArtigo(){var v=((document.getElementById('normaGoArt')||{}).value||'').replace(/\D/g,'');if(!v){alert('Informe o número do artigo.');return;}var a=document.getElementById('art-'+v);if(!a){alert('Art. '+v+' não está nesta amostra (contém arts. 1º a 4º).');return;}document.querySelectorAll('.norma-art.destaque').forEach(e=>e.classList.remove('destaque'));a.classList.add('destaque');a.scrollIntoView({behavior:'smooth',block:'center'});}
+ function irLC214(n){alert('Abrir LC 214/2025 — Art. '+n+' (no portal completo, isto navega até o artigo da LC 214).');}
+ return{render:render,irArtigo:irArtigo,irLC214:irLC214};
+})();
+
+/* ====== DADOS REAIS (arts. 1º a 4º do cbs_completo.json) ====== */
+const CBS_AMOSTRA = [
+ {artigo:"1",hierarquia:{},referencias_lc214:{},
+  texto:"Art. 1º A Contribuição Social sobre Bens e Serviços –\nCBS, de competência da União, de que trata o\nart. 195, caput, inciso V, da Constituição,\ne instituída pela\nLei Complementar nº 214, de 16 de janeiro de 2025,\nserá regida pelas disposições contidas neste Regulamento."},
+ {artigo:"2",hierarquia:["LIVRO I - DAS NORMAS COMUNS À CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS E AO IMPOSTO SOBRE BENS E SERVIÇOS","TÍTULO I - DAS NORMAS GERAIS DA CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS","CAPÍTULO I - DISPOSIÇÕES PRELIMINARES"],referencias_lc214:"3",
+  texto:"Art. 2º Para fins deste Regulamento, consideram-se: (Art.\n3º da Lei Complementar nº 214, de 16 de janeiro de 2025)\nI - operações com:\na) bens - todas e quaisquer que envolvam bens móveis ou imóveis, materiais\nou imateriais, inclusive direitos; e\nb) serviços - todas as demais que não sejam enquadradas como operações com\nbens nos termos da alínea “a” deste inciso;\nII - fornecimento:\na) entrega ou disponibilização de bem material;\nb) instituição, transferência, cessão, concessão, licenciamento ou\ndisponibilização de bem imaterial, inclusive direito; e\nc) prestação ou disponibilização de serviço;\nIII – fornecedor - pessoa física ou jurídica que, residente ou domiciliado\nno País ou no exterior, realiza o fornecimento;\nIV - adquirente:\na) aquele obrigado ao pagamento ou a qualquer outra forma de contraprestação\npelo fornecimento de bem ou serviço; e\nb) nos casos de pagamento ou de qualquer outra forma de contraprestação por\nconta e ordem ou em nome de terceiros, aquele por conta de quem ou em nome\nde quem decorre a obrigação de pagamento ou de qualquer outra forma de\ncontraprestação pelo fornecimento de bem ou serviço;\nV - destinatário - aquele a quem for fornecido o bem ou serviço, podendo ser\no próprio adquirente ou não; e\nVI - crédito:\na) a apropriar a expectativa de crédito originada de débito de CBS\ndecorrente de documento fiscal idôneo e ainda não extinto pelas modalidades\nprevistas no art. 26;\nb) apropriado aquele que, após o cumprimento dos requisitos para\napropriação, está disponível para compensação ou ressarcimento, por\ncontribuinte no regime regular; e\nc) utilizado aquele compensado com débito de CBS por contribuinte no regime\nregular ou a ele ressarcido.\n§ 1º Equiparam-se a bens materiais as energias que tenham valor econômico.\n§ 2º Incluem-se no conceito de fornecedor de que trata o inciso III do\ncaput as entidades sem personalidade jurídica, inclusive:\nI - sociedade em comum;\nII - sociedade em conta de participação;\nIII - consórcio;\nIV - condomínio; e\nV - fundo de investimento.\n§ 3º Incluem-se nas operações de que trata o inciso I, alínea “a”, do\ncaput a locação, o arrendamento e a cessão temporária do bem."},
+ {artigo:"3",hierarquia:["LIVRO I - DAS NORMAS COMUNS À CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS E AO IMPOSTO SOBRE BENS E SERVIÇOS","TÍTULO I - DAS NORMAS GERAIS DA CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS","CAPÍTULO I - DISPOSIÇÕES PRELIMINARES"],referencias_lc214:"492",
+  texto:"Art. 3º Para fins deste Regulamento: (Art.\n492 da Lei Complementar nº 214, de 16 de janeiro de 2025)\nI - a Nomenclatura Comum do Mercosul/Sistema Harmonizado – NCM/SH\ncorresponde àquela aprovada pela Resolução Gecex nº 272, de 19 de novembro\nde 2021; e\nII - a Nomenclatura Brasileira de Serviços, Intangíveis e Outras Operações\nque Produzam Variações no Patrimônio – NBS corresponde àquela aprovada pela\nPortaria Conjunta RFB/SCS nº 2.000, de 18 de dezembro de 2018.\n§ 1º Os códigos constantes deste Regulamento estão em conformidade com a\nNCM/SH e com a NBS de que tratam os incisos I e II do caput.\n§ 2º Eventuais alterações futuras da NCM/SH e NBS de que trata o caput\nque acarretem modificação da classificação fiscal dos produtos mencionados\nneste Regulamento não afetarão as disposições a eles aplicadas com base na\nclassificação anterior."},
+ {artigo:"4",hierarquia:["LIVRO I - DAS NORMAS COMUNS À CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS E AO IMPOSTO SOBRE BENS E SERVIÇOS","TÍTULO I - DAS NORMAS GERAIS DA CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS","CAPÍTULO II - DA CONTRIBUIÇÃO SOCIAL SOBRE BENS E SERVIÇOS SOBRE OPERAÇÕES COM BENS E SERVIÇOS","Seção I - Das hipóteses de incidência"],referencias_lc214:"4",
+  texto:"Art. 4º A CBS incide sobre operações onerosas com bens\nou com serviços. (Art.\n4º da Lei Complementar nº 214, de 16 de janeiro de 2025)\n§ 1º As operações não onerosas com bens ou com serviços serão tributadas\nnas hipóteses expressamente previstas neste Regulamento.\n§ 2º Para fins do disposto neste artigo, considera-se operação onerosa com\nbens ou com serviços qualquer fornecimento com contraprestação, incluindo o\ndecorrente de:\nI - compra e venda, troca ou permuta, dação em pagamento e demais espécies\nde alienação;\nII - locação;\nIII - licenciamento, concessão, cessão;\nIV - mútuo oneroso;\nV - doação com contraprestação em benefício do doador;\nVI - instituição onerosa de direitos reais;\nVII - arrendamento, inclusive mercantil; e\nVIII - prestação de serviços.\n§ 3º São irrelevantes para a caracterização das operações de que trata este\nartigo:\nI - o título jurídico pelo qual o bem encontra-se na posse do fornecedor;\nII - a espécie, tipo ou forma jurídica, a validade jurídica e os efeitos dos\natos ou negócios jurídicos;\nIII - a obtenção de lucro com a operação; e\nIV - o cumprimento de exigências legais, regulamentares ou administrativas.\n§ 4º A CBS incide sobre qualquer operação com bem ou com serviço realizada\npelo contribuinte, incluídas aquelas realizadas com ativo não circulante ou\nno exercício de atividade econômica não habitual.\n§ 5º Nas hipóteses de troca ou permuta de que trata o inciso I do § 2º,\ncada um dos fornecimentos será considerado uma operação distinta para fins\nde incidência da CBS, ressalvado o disposto no art. 360, § 3º, inciso I.\n§ 6º A aquisição e o fornecimento, por pessoa física caracterizada como\ncontribuinte, de bens e serviços não relacionados ao desenvolvimento de sua\natividade econômica sujeitam-se às mesmas regras aplicáveis aos não\ncontribuintes."}
+];
+
+MindTaxNorma.render(document.getElementById('cbs-root'), {
+    sigla:'CBS', titulo:'Regulamento da CBS — Decreto nº 12.955/2026',
+    subtitulo:'Amostra: arts. 1º a 4º (dados reais da sua extração)', icone:'CBS'
+}, CBS_AMOSTRA);
+</script>
+</body>
+</html>
