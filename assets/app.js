@@ -53,14 +53,14 @@ const MindTax = (function () {
 
     async function verInicio() {
         loading();
-        $content().innerHTML = await getText("modulos/inicio.html");
+        $content().innerHTML = await getText("módulos/inicio.html");
         topbar(TOP.inicio.t, TOP.inicio.s); marcar("inicio");
         window.scrollTo({ top: 0 });
     }
 
     async function verReforma() {
         loading();
-        $content().innerHTML = await getText("modulos/reforma.html");
+        $content().innerHTML = await getText("módulos/reforma.html");
         topbar(TOP.reforma.t, TOP.reforma.s); marcar("reforma");
         window.scrollTo({ top: 0 });
     }
@@ -68,7 +68,7 @@ const MindTax = (function () {
     /* ---------- NORMA: renderiza a partir do JSON ---------- */
     async function verNorma(id, ancora) {
         loading();
-        const manifesto = await getJSON("normas/manifesto.json");
+        const manifesto = await getJSON("leis/manifesto.json");
         const info = manifesto.find(n => n.id === id);
         if (!info) return erro('Norma "' + id + '" não encontrada no manifesto.');
 
