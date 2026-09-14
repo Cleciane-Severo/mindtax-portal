@@ -1,13 +1,14 @@
 /* ==========================================================
-   MINDTAX — MOTOR DO PORTAL (app.js)
-   - Roteia entre módulos (Início, Reforma, Norma)
-   - Carrega arquivos SOB DEMANDA (só o que o usuário abre)
-   - Módulos de layout: modulos/*.html
-   - Dados de norma:   normas/*.json (registrados em manifesto.json)
-   Requer servir por http:// (GitHub Pages ou Live Server).
+   MINDTAX — MOTOR DO PORTAL (app.js) — CAMINHOS CORRIGIDOS
+   Pastas do repositório: ativos / módulos / leis
+   O acento de "módulos" é tratado com %C3%B3 (sempre funciona).
    ========================================================== */
 
 const MindTax = (function () {
+
+    /* Caminhos das pastas do repositório (ajuste aqui se renomear pastas) */
+    const PASTA_MODULOS = "m%C3%B3dulos";   /* = módulos (com acento tratado) */
+    const PASTA_DADOS   = "leis";           /* onde ficam os .json das normas */
 
     const $content = () => document.getElementById("app-content");
     const $title   = () => document.getElementById("topTitle");
@@ -39,10 +40,9 @@ const MindTax = (function () {
     function loading() { $content().innerHTML = '<div class="loading">Carregando…</div>'; }
     function erro(msg) {
         $content().innerHTML = '<div class="loading">⚠️ ' + msg +
-            '<br><br>Este portal precisa rodar em servidor (GitHub Pages ou Live Server), não por duplo clique.</div>';
+            '<br><br>Verifique os nomes das pastas e arquivos.</div>';
     }
 
-    /* ---------- ROTEADOR ---------- */
     async function go(rota, param, ancora) {
         try {
             if (rota === "reforma") return await verReforma();
@@ -53,22 +53,21 @@ const MindTax = (function () {
 
     async function verInicio() {
         loading();
-        $content().innerHTML = await getText("módulos/inicio.html");
+        $content().innerHTML = await getText(PASTA_MODULOS + "/inicio.html");
         topbar(TOP.inicio.t, TOP.inicio.s); marcar("inicio");
         window.scrollTo({ top: 0 });
     }
 
     async function verReforma() {
         loading();
-        $content().innerHTML = await getText("módulos/reforma.html");
+        $content().innerHTML = await getText(PASTA_MODULOS + "/reforma.html");
         topbar(TOP.reforma.t, TOP.reforma.s); marcar("reforma");
         window.scrollTo({ top: 0 });
     }
 
-    /* ---------- NORMA: renderiza a partir do JSON ---------- */
     async function verNorma(id, ancora) {
         loading();
-        const manifesto = await getJSON("leis/manifesto.json");
+        const manifesto = await getJSON(PASTA_DADOS + "/manifesto.json");
         const info = manifesto.find(n => n.id === id);
         if (!info) return erro('Norma "' + id + '" não encontrada no manifesto.');
 
@@ -108,10 +107,6 @@ const MindTax = (function () {
         }
     }
 
-    /* ==========================================================
-       Funções usadas pelo HTML dos módulos (globais via MindTax.*)
-       ========================================================== */
-
     function buscar(inputId) {
         const t = (document.getElementById(inputId) || {}).value || "";
         if (!t.trim()) { alert("Digite um artigo, tema ou norma."); return; }
@@ -123,7 +118,6 @@ const MindTax = (function () {
     }
     function emBreve(nome) { alert('"' + nome + '" — em construção.'); }
 
-    /* Reforma: abrir/fechar Estrutura da LC 214 (Bloco 3) */
     function abrirEstrutura() {
         const e = document.getElementById("rtEstrutura");
         if (!e) return;
@@ -137,7 +131,6 @@ const MindTax = (function () {
         const bases = document.querySelector(".rt-bases");
         if (bases) bases.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-    /* Ir a um artigo da LC 214 (abre a norma e rola até ele) */
     function irArtigo(inputId) {
         const n = (document.getElementById(inputId) || {}).value || "";
         if (!n.trim()) { alert("Informe o número do artigo (ex.: 173)."); return; }
